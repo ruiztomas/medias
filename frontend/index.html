@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock de Medias</title>
+    <style>
+        body {font-family: Arial, sans-serif; max-width: 700px; margin: auto;}
+        table{border-collapse: collapse; width: 100%;}
+        th, td{padding: 8px; border: 1px solid #ccc;}
+        th{background: #eee;}
+    </style>
+</head>
+<body>
+    <h1>Stock de Medias</h1>
+
+    <form id="formAgregarMedia">
+        <h3>Agregar media</h3>
+        <label>Modelo:
+            <select id="modelo" require>
+                <option value="">Seleccionar modelo:</option>
+                <option value="Soquete">Soquete</option>
+                <option value="Soquete niño">Soquete niño</option>
+                <option value="3/4">3/4</option>
+            </select>
+        </label>
+        <label>Nombre: <input id="nombre" type="text" required/></label>
+        <label>Cantidad: <input id="cantidad" type="number" min="1" value="1" required/></label>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <h3>Listado de medias en stock</h3>
+    <table id="tablaStock">
+        <thead>
+            <tr><th>Modelo</th><th>Nombre</th><th>Cantidad</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const API_BASE='http://localhost:3000/api';
+
+        async function cargarStock(){
+            const res=await fetch(`${API_BASE}/stock`);
+            const stock=await res.json();
+            const tbody=document.querySelector('#tablaStock tbody');
+            
+        }
+    </script>
+</body>
+</html>
