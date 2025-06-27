@@ -1,7 +1,7 @@
 const API_BASE='http://localhost:3000/api';
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    cargarStock;
+    cargarStock();
 
     const form=document.getElementById('formAgregarMedia');
     form.addEventListener('submit', async(e)=>{
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
         if (!modelo || !nombre || cantidad<1)return;
 
-        await fetch(`{API_BASE}/stock`,{
+        await fetch(`${API_BASE}/stock`,{
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({modelo, nombre, cantidad})
@@ -41,13 +41,15 @@ async function cargarStock(){
     const tbody=document.querySelector('#tablaStock tbody');
     tbody.innerHTML='';
     
-    stock.forEach(item => {
-        const tr=document.createElement('tr');
-        tr.innerHTML=`
-            <td>${item.modelo}</td>
-            <td>${item.nombre}</td>
-            <td>${item.cantidad}</td>
-        `;
-        tbody.appendChild(tr);
-    });
+    stock
+        .filter(item=>filtro==='todos' || item.modelo===filtro)
+        .forEach(item => {
+            const tr=document.createElement('tr');
+            tr.innerHTML=`
+                <td>${item.modelo}</td>
+                <td>${item.nombre}</td>
+                <td>${item.cantidad}</td>
+            `;
+            tbody.appendChild(tr);
+        });
 }

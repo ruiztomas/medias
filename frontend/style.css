@@ -123,3 +123,15 @@ footer{
     background-color: var(--color-primario);
     color: white;
 }
+
+button.btnEliminar{
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #c62828;
+}
+
+button.btnEliminar:hover{
+    color: #b71c1c;
+}

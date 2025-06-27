@@ -21,4 +21,15 @@ router.delete('/:id', async(req, res)=>{
     res.sendStatus(204);
 });
 
+router.patch('/:id/restar', async(req, res)=>{
+    const {id}=req.params;
+    const {cantidad}=req.body;
+
+    const result=await collection.updateOne(
+        {_id: new ObjectId(id)},
+        {$inc: {cantidad: -cantidad}}
+    );
+    res.json(result);
+});
+
 export default router;
