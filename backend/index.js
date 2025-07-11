@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import stockRoutes from './routes/stock';
-import ventasRoutes from './routes/ventas';
+import stockRoutes from './routes/stock.js';
+import ventasRoutes from './routes/ventas.js';
 
 dotenv.config();
 
