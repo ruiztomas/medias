@@ -1,5 +1,7 @@
 const API_BASE='http://localhost:3000/api';
 
+let filtro="todos";
+
 document.addEventListener('DOMContentLoaded', ()=>{
     cargarStock();
 
@@ -9,17 +11,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const modelo=document.getElementById('modelo').value;
         const nombre=document.getElementById('nombre').value.trim();
         const cantidad=parseInt(document.getElementById('cantidad').value);
+        const imagenInput=document.getElementById('imagen');
 
-        if (!modelo || !nombre || cantidad<1)return;
+        if (!modelo || !nombre || cantidad<1 || imagenInput.files.length === 0)return;
+
+        const formData= new FormData();
+        formData.append('modelo', modelo);
+        formData.append('nombre', nombre);
+        formData.append('cantidad', cantidad);
+        formData.append('imagen', imagenInput.files[0]);
 
         await fetch(`${API_BASE}/stock`,{
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({modelo, nombre, cantidad})
+            body: formData,
         });
 
-        form.reset();
-        cargarStock();
+        e.target.reset();
+        cargarStock(filtro);
     });
 
     const botonesFiltro=document.querySelectorAll('.filtros button');
@@ -28,8 +36,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             botonesFiltro.forEach(b=>b.classList.remove('activo'));
             btn.classList.add('activo');
 
-            const modelo=btn.dataset.modelo;
-            cargarStock(modelo);
+            filtro=btn.dataset.modelo;
+            cargarStock();
         });
     });
 });
@@ -49,7 +57,27 @@ async function cargarStock(){
                 <td>${item.modelo}</td>
                 <td>${item.nombre}</td>
                 <td>${item.cantidad}</td>
+                <td>
+                    <button class="btnRepuesta" data-id="${item._id}">
+                        ${item.repuesta ? '✅' : '⬜'}
+                    </button>
+                </td>
             `;
             tbody.appendChild(tr);
         });
+    
+    document.querySelectorAll('.btnRepuesta').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            const esRepuesta = btn.textContent === '✅';
+            const nuevoValor = !esRepuesta;
+
+            await fetch(`${API_BASE}/stock/${id}/repuesta`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ repuesta: nuevoValor })
+            });
+            cargarStock();
+        });
+    });
 }

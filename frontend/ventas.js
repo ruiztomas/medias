@@ -1,4 +1,4 @@
-const API_BASE='https://localhost:3000/api';
+const API_BASE='http://localhost:3000/api';
 
 document.addEventListener('DOMContentLoaded', async()=>{
     await cargarOpcionesStock();
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async()=>{
     const form=document.getElementById('formVenta');
     form.addEventListener('submit', async(e)=>{
         e.preventDefault();
-        const mediaId=document.getElementById('mediaSelect').ariaValueMax;
+        const mediaId=document.getElementById('mediaSelect').value;
         const cantidad=parseInt(document.getElementById('cantidadVenta').value);
 
         if (!mediaId || cantidad<1)return;
@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', async()=>{
         const nombre=selectedOption.dataset.nombre;
 
         await fetch(`${API_BASE}/ventas`,{
+            method: 'PATH',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({modelo,nombre,cantidad})
+        });
+
+        await fetch(`${API_BASE}/stock/${mediaId}/restar`,{
             method: 'PATH',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({cantidad})

@@ -13,7 +13,7 @@
     <main>
         <section class="formulario">
             <h2>Agregar media</h2>
-            <form id="formAgregarMedia">
+            <form id="formAgregarMedia" enctype="multipart/form-data">
                 <label>
                     Modelo:
                     <select id="modelo" require>
@@ -32,6 +32,11 @@
                 <label>
                     Cantidad: 
                     <input id="cantidad" type="number" min="1" value="1" required/>
+                </label>
+                
+                <label>
+                    Imagen:
+                    <input id="imagen" type="file" accept="image/*" required/>
                 </label>
 
                 <button type="submit">Agregar</button>
