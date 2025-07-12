@@ -159,3 +159,64 @@ td button {
 td button:hover {
     background: #ccc;
 }
+
+.menu-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    font-size: 1.8rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: -220px;
+    width: 200px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1rem;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.menu-lateral a {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 0;
+}
+
+.menu-lateral a:hover {
+    color: #c2185b;
+}
+
+.menu-lateral.abierto {
+    left: 0;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.menu-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
