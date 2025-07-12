@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         const nombre=document.getElementById('nombre').value.trim();
         const cantidad=parseInt(document.getElementById('cantidad').value);
         const imagenInput=document.getElementById('imagen');
+        const precio=parseFloat(document.getElementById('precio').value);
 
         if (!modelo || !nombre || cantidad<1 || imagenInput.files.length === 0)return;
 
@@ -20,6 +21,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         formData.append('nombre', nombre);
         formData.append('cantidad', cantidad);
         formData.append('imagen', imagenInput.files[0]);
+        formData.append('precio', precio);
 
         await fetch(`${API_BASE}/stock`,{
             method: 'POST',
@@ -56,7 +58,11 @@ async function cargarStock(){
             tr.innerHTML=`
                 <td>${item.modelo}</td>
                 <td>${item.nombre}</td>
-                <td>${item.cantidad}</td>
+                <td>
+                    ${item.cantidad}
+                    <button class="btnSumar" data-id="${item._id}">+</button>
+                    <button class="btnRestar" data-id="${item._id}">-</button>
+                </td>
                 <td>
                     <button class="btnRepuesta" data-id="${item._id}">
                         ${item.repuesta ? '✅' : '⬜'}
@@ -66,6 +72,30 @@ async function cargarStock(){
             tbody.appendChild(tr);
         });
     
+    document.querySelectorAll('.btnSumar').forEach(btn=>{
+        btn.addEventListener('click', async()=>{
+            const id=btn.dataset.id;
+            await fetch(`${API_BASE}/stock/${id}/sumar`,{
+                method: 'PATCH',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({cantidad:1})
+            });
+            cargarStock();
+        });
+    });
+
+    document.querySelectorAll('.btnRestar').forEach(btn=>{
+        btn.addEventListener('click', async()=>{
+            const id=btn.dataset.id;
+            await fetch(`${API_BASE}/stock/${id}/restar`,{
+                method: 'PATCH',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({cantidad:1})
+            });
+            cargarStock();
+        });
+    });
+
     document.querySelectorAll('.btnRepuesta').forEach(btn => {
         btn.addEventListener('click', async () => {
             const id = btn.dataset.id;

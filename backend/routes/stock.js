@@ -101,4 +101,15 @@ router.patch('/:id/repuesta', async(req, res)=>{
     res.json(result);
 });
 
+router.patch('/:id/sumar',async(req, res)=>{
+    const {id}=req.params;
+    const {cantidad}=req.body;
+
+    const result=await collection.updateOne(
+        {_id: new ObjectId(id)},
+        {$inc: {cantidad: cantidad}}
+    );
+    res.json(result);
+});
+
 export default router;
