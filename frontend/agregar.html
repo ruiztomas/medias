@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF8">
+    <title>Agregar Media</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <nav id="menuLateral" class="menu-lateral">
+        <a href="agregar.html">Inicio - Stock</a>
+        <a href="ventas.html">Registrar venta</a>
+        <a href="excel.html">Tabla tipo excel</a>
+    </nav>
+    <div id="menuOverlay" class="menu-overlay"></div>
+    <header>
+    <header>
+        <h1>Agregar media</h1>
+        </nav>
+    </header>
+    <main>
+        <section class="formulario">
+            <h2>Agregar media</h2>
+            <form id="formAgregarMedia" enctype="multipart/form-data">
+                <label>
+                    Modelo:
+                    <select id="modelo" require>
+                        <option value="">Seleccionar modelo:</option>
+                        <option value="Soquete">Soquete</option>
+                        <option value="Soquete niño">Soquete niño</option>
+                        <option value="3/4">3/4</option>
+                    </select>
+                </label>
+            
+                <label>
+                    Nombre: 
+                    <input id="nombre" type="text" required/>
+                </label>
+            
+                <label>
+                    Cantidad: 
+                    <input id="cantidad" type="number" min="1" value="1" required/>
+                </label>
+                
+                <label>
+                    Imagen:
+                    <input id="imagen" type="file" accept="image/*" required/>
+                </label>
+                <button type="submit">Agregar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        @2025 Tienda Lunoso
+    </footer>
+
+    <script src="agregar.js"></script>
+</body>
+</html>
