@@ -4,4 +4,37 @@
     <meta charset="UTF-8">
     <title>Control de gastos</title>
 </head>
+<body>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <nav id="menuLateral" class="menu-lateral">
+        <a href="menuStock.html">Inicio - Stock</a>
+        <a href="agregar.html">Agregar media</a>
+        <a href="ventas.html">Registrar venta</a>
+        <a href="excel.html">Tabla tipo Excel</a>
+    </nav>
+    <div id="menuOverlay" class="menu-overlay"></div>
+    <header>
+        <h1>Control de gastos</h1>
+    </header>
+    <main>
+        <table id="tablaResumen">
+            <thead>
+                <tr>
+                    <th>Modelo</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <p id="totalGeneral"></p>
+    </main>
+    <footer>
+        @2025 Tienda Lunoso 
+    </footer>
+    <script src="excel.js"></script>
+    <script src="menu.js"></script>
+</body>
 </html>

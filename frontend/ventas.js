@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async()=>{
         const nombre=selectedOption.dataset.nombre;
 
         await fetch(`${API_BASE}/ventas`,{
-            method: 'PATCH',
+            method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({modelo,nombre,cantidad})
         });

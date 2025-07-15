@@ -42,18 +42,21 @@ router.post('/', upload.single('imagen'), async (req, res)=>{
         const {modelo, nombre, cantidad, precioUnitario}=req.body;
         const imagenPath=req.file ? `/uploads/${req.file.filename}` : null;
 
-        if (!modelo || !nombre || !cantidad || !precioUnitario){
+        const cantidadNum=parseInt(cantidad);
+        const precioNum=parseFloat(precioUnitario);
+
+        if (!modelo || !nombre || isNaN(cantidadNum) || isNaN(precioNum)){
             return res.status(400).json({error: 'Faltan datos'});
         }
 
         const nuevaMedia={
             modelo,
             nombre,
-            cantidad: parseInt(cantidad),
-            precioUnitario: parseFloat(precioUnitario),
+            cantidad: cantidadNum,
+            precioUnitario: precioNum,
             imagen: imagenPath,
             repuesta: false,
-            fecha: new Date().toISOString()
+            fecha: new Date().toISOStsring()
         };
 
         const result=await collection.insertOne(nuevaMedia);
@@ -79,6 +82,11 @@ router.patch('/:id/restar', async(req, res)=>{
     try{
         const {id}=req.params;
         const {cantidad}=req.body;
+
+        const media=await collection.findOne({_id: new ObjectId(id)});
+        if (!media || media.cantidad<cantidad){
+            return res.status(400).json({error: 'Stock insuficiente'});
+        }
 
         const result=await collection.updateOne(
             {_id: new ObjectId(id)},
