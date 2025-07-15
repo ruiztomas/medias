@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', async()=>{
         const nombre=selectedOption.dataset.nombre;
 
         await fetch(`${API_BASE}/ventas`,{
-            method: 'PATH',
+            method: 'PATCH',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({modelo,nombre,cantidad})
         });
 
         await fetch(`${API_BASE}/stock/${mediaId}/restar`,{
-            method: 'PATH',
+            method: 'PATCH',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({cantidad})
         });
