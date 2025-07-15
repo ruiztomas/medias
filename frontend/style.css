@@ -185,7 +185,9 @@ td button:hover {
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    padding: 2rem 1rem;
+    padding-top: 4.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     gap: 1rem;
     transition: left 0.3s ease;
     z-index: 1000;
@@ -219,4 +221,27 @@ td button:hover {
 .menu-overlay.visible {
     opacity: 1;
     visibility: visible;
+}
+
+body.excel {
+    background-color: #fffbe6;
+}
+
+.tabla-excel {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background: white;
+}
+
+.tabla-excel th,
+.tabla-excel td {
+    border: 1px solid #ddd;
+    padding: 0.6rem;
+    text-align: center;
+}
+
+.tabla-excel th {
+    background-color: #f5f5dc;
+    font-weight: bold;
 }

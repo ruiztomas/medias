@@ -25,7 +25,11 @@
             <button data-modelo="Soquete niño">Soquete niño</button>
             <button data-modelo="3/4">3/4</button>
         </section>
-
+        <label>
+            Buscar media:
+            <input id="busquedaInput" list="listaMedias" placeholder="Buscar por nombre..." />
+            <datalist id="listaMedias"></datalist>
+        </label>
         <section class="stock">
             <h2>Listado de medias en stock</h2>
             <table id="tablaStock">
@@ -34,8 +38,6 @@
                         <th>Modelo</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
                         <th>Imagen</th>
                         <th>Eliminar</th>
                     </tr>

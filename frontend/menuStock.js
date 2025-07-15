@@ -1,9 +1,11 @@
 const API_BASE = 'http://localhost:3000/api';
 
 let filtro = "todos";
+let textoBusqueda="";
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarStock();
+    cargarSugerenciasDeMedias();
 
     const botonesFiltro = document.querySelectorAll('button[data-modelo]');
     botonesFiltro.forEach(btn => {
@@ -15,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cargarStock();
         });
     });
+    const inputBusqueda=document.getElementById("busquedaInput");
+    inputBusqueda.addEventListener('input',()=>{
+        textoBusqueda=inputBusqueda.value.toLowerCase();
+        cargarStock();
+    });
 });    
 
 async function cargarStock() {
@@ -25,7 +32,10 @@ async function cargarStock() {
     tbody.innerHTML = '';
 
     stock
-        .filter(item => filtro === 'todos' || item.modelo === filtro)
+        .filter(item => 
+            (filtro === 'todos' || item.modelo === filtro)&&
+            (item.nombre.toLowerCase().includes(textoBusqueda) || item.modelo.toLowerCase().includes(textoBusqueda))
+        )
         .forEach(item => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -96,5 +106,21 @@ async function cargarStock() {
                 cargarStock();
             }
         });
+    });
+}
+async function cargarSugerenciasDeMedias(){
+    const res=await fetch(`${API_BASE}/stock`);
+    const stock=await res.json();
+    
+    const datalist=document.getElementById('listaMedias');
+    if(!datalist)return;
+    datalist.innerHTML='';
+
+    const nombresUnicos=[...new Set(stock.map(item=>item.nombre))];
+
+    nombresUnicos.forEach(nombre=>{
+        const option=document.createElement('option');
+        option.value=nombre;
+        datalist.appendChild(option);
     });
 }

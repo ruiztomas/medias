@@ -39,13 +39,16 @@ router.get('/', async(req, res)=>{
 
 router.post('/', upload.single('imagen'), async (req, res)=>{
     try{
-        const {modelo, nombre, cantidad, precioUnitario}=req.body;
+        const {modelo, nombre, cantidad}=req.body;
+        const preciosPorModelo={
+            'Soquete':1500,
+            'Soquete niño':1500,
+            '3/4':2500
+        };
+        const precioUnitario=preciosPorModelo[modelo]||0;
         const imagenPath=req.file ? `/uploads/${req.file.filename}` : null;
 
-        const cantidadNum=parseInt(cantidad);
-        const precioNum=parseFloat(precioUnitario);
-
-        if (!modelo || !nombre || isNaN(cantidadNum) || isNaN(precioNum)){
+        if (!modelo || !nombre || !cantidad){
             return res.status(400).json({error: 'Faltan datos'});
         }
 
@@ -53,7 +56,7 @@ router.post('/', upload.single('imagen'), async (req, res)=>{
             modelo,
             nombre,
             cantidad: cantidadNum,
-            precioUnitario: precioNum,
+            precioUnitario: precioUnitario,
             imagen: imagenPath,
             repuesta: false,
             fecha: new Date().toISOStsring()

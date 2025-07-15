@@ -12,7 +12,6 @@ stock.forEach(item=>{
         <td>${item.modelo}></td>
         <td>${item.nombre}<>/td>
         <td>${item.cantidad}></td>
-        <td>${item.precioUnitario.toFixed(2)}></td>
         <td>${subtotal.toFixed(2)}></td>
     `;
     tbody.appendChild(tr);
